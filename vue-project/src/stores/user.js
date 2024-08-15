@@ -60,6 +60,7 @@ export const useUserStore = defineStore('user', {
     async logout() {
       await signOut(auth)
       this.setUser(null)
+      this.notifications = []
     },
     async deleteNotification(docRef) {
       await deleteDoc(doc(db, 'notifications', docRef))

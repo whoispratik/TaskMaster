@@ -43,12 +43,12 @@
         <div class="p-4 max-w-full" v-show="empStore.taskfinalreviewclick">
           <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             <li
-              v-for="file in empStore.taskfile"
+              v-for="(file, index) in empStore.taskfile"
               :key="file[0]"
               class="bg-gray-100 p-4 rounded-lg shadow hover:shadow-md"
             >
               <a :href="file[1].url" target="_blank" class="text-blue-600 hover:underline">
-                {{ file[1].name }}
+                Download File {{ index }}
               </a>
             </li>
           </ul>

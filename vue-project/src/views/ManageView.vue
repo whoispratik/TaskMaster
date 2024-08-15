@@ -7,7 +7,7 @@
       <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 xl:w-1/3 p-3" v-if="InitialUserStore.interface">
           <!--Metric Card-->
-          <div class="bg-white border rounded shadow p-2">
+          <div class="bg-neutral border rounded shadow p-2 text-neutral-content">
             <div class="flex flex-row items-center">
               <div class="flex-shrink pr-4">
                 <div class="rounded p-3 bg-pink-600">
@@ -15,7 +15,7 @@
                 </div>
               </div>
               <div class="flex-1 text-right md:text-center">
-                <h5 class="font-bold uppercase text-gray-500">Employees</h5>
+                <h5 class="font-bold uppercase">Employees</h5>
                 <h3 class="font-bold text-3xl">
                   {{ userStore.RenderedEmpArray.length
                   }}<span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span>
@@ -33,15 +33,15 @@
           @click.stop="this.userStore.taskReviewToggle"
         >
           <!--Metric Card-->
-          <div class="bg-white border rounded shadow p-2">
+          <div class="bg-neutral border rounded shadow p-2 text-neutral-content">
             <div class="flex flex-row items-center">
               <div class="flex-shrink pr-4">
                 <div class="rounded p-3 bg-pink-600">
-                  <i class="fas fa-users fa-2x fa-fw fa-inverse"></i>
+                  <i class="fa-solid fa-magnifying-glass fa-2x fa-fw fa-inverse"></i>
                 </div>
               </div>
               <div class="flex-1 text-right md:text-center">
-                <h5 class="font-bold uppercase text-gray-500">To Review</h5>
+                <h5 class="font-bold uppercase">To Review</h5>
               </div>
             </div>
           </div>
@@ -52,7 +52,7 @@
         <div class="w-full md:w-1/2 xl:w-1/3 p-3" v-if="InitialUserStore.interface">
           <!--Metric Card-->
           <div
-            class="bg-white border rounded shadow p-2"
+            class="bg-neutral border rounded shadow p-2 text-neutral-content"
             @mouseover="manageStore.MouseOverHandler"
             @mouseout="manageStore.MouseOutHandler"
             @click="manageStore.toggle"
@@ -67,7 +67,7 @@
                 </div>
               </div>
               <div class="flex-1 text-right md:text-center cursor-pointer">
-                <h5 class="font-bold uppercase text-gray-500">register Users</h5>
+                <h5 class="font-bold uppercase">register Users</h5>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@
         </div>
         <div class="w-full md:w-1/2 xl:w-1/3 p-3">
           <!--Metric Card-->
-          <div class="bg-white border rounded shadow p-2">
+          <div class="bg-neutral border rounded shadow p-2 text-neutral-content">
             <div class="flex flex-row items-center">
               <div class="flex-shrink pr-4">
                 <div class="rounded p-3 bg-indigo-600">
@@ -83,10 +83,12 @@
                 </div>
               </div>
               <div class="dropdown w-full">
-                <div tabindex="0" role="button" class="w-full">Tasks</div>
+                <div class="flex-1 text-right md:text-center cursor-pointer">
+                  <h5 tabindex="0" role="button" class="font-bold uppercase">Tasks</h5>
+                </div>
                 <ul
                   tabindex="0"
-                  class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                  class="dropdown-content menu bg-neutral rounded-box z-[1] w-52 p-2 shadow b"
                 >
                   <li v-if="InitialUserStore.interface">
                     <a @click.stop.prevent="manageStore.createtasktoggle">Create tasks</a>
@@ -103,20 +105,23 @@
       <!--Divider-->
       <hr class="border-b-2 border-gray-400 my-8 mx-4" />
 
-      <div class="flex flex-row flex-wrap flex-grow mt-2">
+      <div class="flex flex-row flex-wrap flex-grow mt-2 bg-neutral">
         <div class="w-full p-3">
           <!--Table Card-->
-          <div class="bg-white border rounded shadow" v-if="InitialUserStore.UserType == 'admin'">
+          <div class="border rounded shadow" v-if="InitialUserStore.UserType == 'admin'">
             <div class="border-b p-3">
               <h5 class="font-bold uppercase text-gray-600">Table</h5>
             </div>
-            <div class="p-5">
-              <table class="w-full p-5 text-gray-700" v-if="userStore.RenderedEmpArray.length > 0">
+            <div class="p-5 overflow-x-auto">
+              <table
+                class="table w-full p-5 bg-neutral text-neutral-content"
+                v-if="userStore.RenderedEmpArray.length > 0"
+              >
                 <thead>
                   <tr>
-                    <th class="text-left text-blue-900">Name</th>
-                    <th class="text-left text-blue-900">Role</th>
-                    <th class="text-left text-blue-900">Action</th>
+                    <th class="text-left text-neutral-content">Name</th>
+                    <th class="text-left text-neutral-content">Role</th>
+                    <th class="text-left text-neutral-content">Action</th>
                   </tr>
                 </thead>
 
@@ -126,15 +131,14 @@
                     <td>{{ item[1].JobTitle }}</td>
                     <td>
                       <div class="dropdown dropdown-left w-full">
-                        <div :tabindex="index" role="button" class="w-full">action</div>
+                        <td :tabindex="index" role="button">action</td>
                         <ul
                           :tabindex="index"
-                          class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                          class="dropdown-content bg-neutral menu shadow-white rounded-box z-[1] w-52 p-2 shadow"
                         >
                           <li>
                             <a @click.prevent.stop="togglemodal(index)">view tasks</a>
                           </li>
-                          <li><a>Review Tasks</a></li>
                         </ul>
                       </div>
                     </td>
@@ -149,19 +153,22 @@
          -->
             </div>
           </div>
-          <div class="bg-white border rounded shadow" v-else>
+          <div class="bg-neutral text-neutral-content border rounded shadow" v-else>
             <div class="border-b p-3">
-              <h5 class="font-bold uppercase text-gray-600">Task Table</h5>
+              <h5 class="font-bold uppercase text-neutral-content">Task Table</h5>
             </div>
-            <div class="p-5">
-              <table class="w-full p-5 text-gray-700" v-if="userStore.RenderedTaskArray.length > 0">
-                <thead>
+            <div class="p-5 overflow-x-auto">
+              <table
+                class="table w-full p-5 text-neutral-content"
+                v-if="userStore.RenderedTaskArray.length > 0"
+              >
+                <thead class="text-neutral-content">
                   <tr>
-                    <th class="text-left text-blue-900">Name</th>
-                    <th class="text-left text-blue-900">Priority</th>
-                    <th class="text-left text-blue-900">Deadline</th>
-                    <th class="text-left text-blue-900">Status</th>
-                    <th class="text-left text-blue-900">Action</th>
+                    <th class="text-left">Name</th>
+                    <th class="text-left">Priority</th>
+                    <th class="text-left">Deadline</th>
+                    <th class="text-left">Status</th>
+                    <th class="text-left">Action</th>
                   </tr>
                 </thead>
 
@@ -176,7 +183,7 @@
                         <div tabindex="200000" role="button" class="w-full">Action</div>
                         <ul
                           tabindex="200000"
-                          class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                          class="dropdown-content bg-neutral text-neutral-content menu shadow-white rounded-box z-[1] w-52 p-2 shadow"
                           v-if="item[1].status == 'pending'"
                         >
                           <li>
@@ -207,22 +214,22 @@
   <taskModels></taskModels>
   <!-- You can open the modal using ID.showModal() method -->
   <dialog id="my_modal_3" class="modal" :class="taskviewmodal">
-    <div class="modal-box">
+    <div class="modal-box bg-neutral text-neutral-content">
       <form method="dialog">
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="closer">
           ✕
         </button>
       </form>
-      <div class="overflow-x-auto">
+      <div class="overflow-x-auto bg-neutral text-neutral-content">
         <table class="table" v-if="userStore.RenderedTaskArray.length > 0">
           <!-- head -->
           <thead>
-            <tr>
-              <th class="text-left text-blue-900">Name</th>
-              <th class="text-left text-blue-900">Priority</th>
-              <th class="text-left text-blue-900">Deadline</th>
-              <th class="text-left text-blue-900">Status</th>
-              <th class="text-left text-blue-900">Action</th>
+            <tr class="text-neutral-content">
+              <th class="text-left">Name</th>
+              <th class="text-left">Priority</th>
+              <th class="text-left">Deadline</th>
+              <th class="text-left">Status</th>
+              <th class="text-left">Action</th>
             </tr>
           </thead>
 
@@ -241,7 +248,7 @@
     </div>
   </dialog>
   <dialog id="my_modal_3" class="modal" :class="userStore.taskactionmodal">
-    <div class="modal-box">
+    <div class="modal-box bg-neutral text-neutral-content">
       <form method="dialog">
         <button
           class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -368,4 +375,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>

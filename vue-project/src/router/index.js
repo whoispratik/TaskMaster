@@ -28,7 +28,7 @@ const router = createRouter({
       name: 'userlist'
     }
   ],
-  linkExactActiveClass: 'text-yellow-500'
+  linkExactActiveClass: 'active'
 }) //A router instance is returned
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
