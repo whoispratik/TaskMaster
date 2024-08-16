@@ -1,6 +1,6 @@
 <template>
   <dialog id="my_modal_3" class="modal" :class="empStore.taskreviewmodal">
-    <div class="modal-box">
+    <div class="modal-box bg-neutral text-neutral-content">
       <form method="dialog">
         <button
           class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -16,12 +16,12 @@
         >
           <!-- head -->
           <thead>
-            <tr>
-              <th class="text-left text-blue-900">Name</th>
-              <th class="text-left text-blue-900">Priority</th>
-              <th class="text-left text-blue-900">Deadline</th>
-              <th class="text-left text-blue-900">Status</th>
-              <th class="text-left text-blue-900">Action</th>
+            <tr class="text-neutral-content">
+              <th class="text-left">Name</th>
+              <th class="text-left">Priority</th>
+              <th class="text-left">Deadline</th>
+              <th class="text-left">Status</th>
+              <th class="text-left">Action</th>
             </tr>
           </thead>
 
@@ -39,9 +39,9 @@
             </tr>
           </tbody>
         </table>
-
         <div class="p-4 max-w-full" v-show="empStore.taskfinalreviewclick">
-          <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <!-- Responsive grid for files -->
+          <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
             <li
               v-for="(file, index) in empStore.taskfile"
               :key="file[0]"
@@ -52,18 +52,34 @@
               </a>
             </li>
           </ul>
-          <h1>Employees Remarks:</h1>
 
-          <textarea
-            rows="4"
-            cols="50"
-            v-model="empStore.taskRemarks"
-            disabled
-            class="textarea textarea-success textarea-md"
-          ></textarea>
+          <!-- Employees Remarks section -->
+          <div class="mb-4">
+            <h1 class="text-xl font-semibold mb-2">Employees Remarks:</h1>
+            <textarea
+              rows="4"
+              v-model="empStore.taskRemarks"
+              disabled
+              class="textarea textarea-success textarea-md w-full resize-none"
+              placeholder="No remarks available"
+            ></textarea>
+          </div>
 
-          <button class="btn btn-success btn-lg" @click="empStore.accept">Accept</button>
-          <button class="btn btn-error btn-lg" @click="empStore.reject">Reject</button>
+          <!-- Action buttons -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button
+              class="btn btn-outline btn-success w-full sm:w-auto p-3"
+              @click="empStore.accept"
+            >
+              Accept
+            </button>
+            <button
+              class="btn btn-outline btn-warning w-full sm:w-auto p-3"
+              @click="empStore.reject"
+            >
+              Reject
+            </button>
+          </div>
         </div>
       </div>
     </div>
