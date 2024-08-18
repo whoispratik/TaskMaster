@@ -86,22 +86,29 @@
             ></span>
           </div>
         </button>
-        <template v-if="userStore.notifications.length != 0">
-          <ul
-            tabindex="20000"
-            class="dropdown-content menu rounded-box z-[1] w-52 p-2 shadow bg-neutral text-neutral-content"
-          >
-            <li v-for="(notification, index) in userStore.notifications" :key="index">
-              <span class="mr-0.5">{{ notification[1].message }}</span>
-              <button
-                class="btn btn-sm btn-circle btn-ghost absolute right-0 top-0"
-                @click.stop="userStore.deleteNotification(notification[0])"
-              >
-                ✕
-              </button>
-            </li>
-          </ul>
-        </template>
+
+        <ul
+          v-if="userStore.notifications.length != 0"
+          tabindex="20000"
+          class="dropdown-content menu rounded-box z-[1] w-52 p-2 shadow bg-neutral text-neutral-content"
+        >
+          <li v-for="(notification, index) in userStore.notifications" :key="index">
+            <span class="mr-0.5">{{ notification[1].message }}</span>
+            <button
+              class="btn btn-sm btn-circle btn-ghost absolute right-0 top-0"
+              @click.stop="userStore.deleteNotification(notification[0])"
+            >
+              ✕
+            </button>
+          </li>
+        </ul>
+        <ul
+          v-else
+          tabindex="20000"
+          class="dropdown-content menu rounded-box z-[1] w-52 h-15 p-2 shadow bg-neutral text-neutral-content"
+        >
+          <span class="mr-0.5">No new notifications for now</span>
+        </ul>
       </div>
     </div>
   </div>
