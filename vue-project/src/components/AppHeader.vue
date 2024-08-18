@@ -1,5 +1,4 @@
 <template>
-
   <div class="navbar bg-neutral text-neutral-content">
     <div class="navbar-start">
       <div class="dropdown">
@@ -93,9 +92,9 @@
             class="dropdown-content menu rounded-box z-[1] w-52 p-2 shadow bg-neutral text-neutral-content"
           >
             <li v-for="(notification, index) in userStore.notifications" :key="index">
-              <span>{{ notification[1].message }}</span>
+              <span class="mr-0.5">{{ notification[1].message }}</span>
               <button
-                class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                class="btn btn-sm btn-circle btn-ghost absolute right-0 top-0"
                 @click.stop="userStore.deleteNotification(notification[0])"
               >
                 ✕
