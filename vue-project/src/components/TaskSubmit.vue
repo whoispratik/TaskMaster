@@ -28,7 +28,7 @@
               <td>{{ task.priority }}</td>
               <td>{{ task.deadline }}</td>
               <td>{{ task.status }}</td>
-              <td @click.stop="empStore.ToSubmit(task[0])">
+              <td @click.stop="empStore.ToSubmit(task.id)">
                 <a class="cursor-pointer"> Submit </a>
               </td>
             </tr>

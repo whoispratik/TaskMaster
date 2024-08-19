@@ -156,11 +156,16 @@
           <div class="bg-neutral text-neutral-content border rounded shadow" v-else>
             <div class="border-b p-3">
               <h5 class="font-bold uppercase text-neutral-content">Task Table</h5>
-              <select v-model="filters.name.value" data-theme="light">
+              <select
+                v-model="filters.name.value"
+                data-theme="light"
+                v-if="userStore.RenderedTaskArray.length > 1"
+              >
                 <option disabled value="">priority</option>
                 <option value="High">High</option>
                 <option value="Medium">Medium</option>
-                <option value="LOW">Low</option>
+                <option value="Low">Low</option>
+                <option value="">All</option>
               </select>
             </div>
             <div class="p-5 overflow-x-auto">
@@ -229,28 +234,44 @@
         </button>
       </form>
       <div class="overflow-x-auto bg-neutral text-neutral-content">
-        <table class="table" v-if="userStore.RenderedTaskArray.length > 0">
+        <select
+          v-model="filters.name.value"
+          data-theme="light"
+          v-if="userStore.RenderedTaskArray.length > 0"
+        >
+          <option disabled value="">priority</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="">All</option>
+        </select>
+        <VTable
+          class="table"
+          v-if="userStore.RenderedTaskArray.length > 0"
+          :data="userStore.RenderedTaskArray"
+          :filters="filters"
+        >
           <!-- head -->
-          <thead>
+          <template #head>
             <tr class="text-neutral-content">
               <th class="text-left">Name</th>
               <th class="text-left">Priority</th>
-              <th class="text-left">Deadline</th>
+              <VTh class="text-left" :sortKey="nameLength">Deadline</VTh>
               <th class="text-left">Status</th>
               <th class="text-left">Action</th>
             </tr>
-          </thead>
+          </template>
 
-          <tbody>
-            <tr v-for="item in userStore.RenderedTaskArray" :key="item">
-              <td>{{ item.name }}</td>
-              <td>{{ item.priority }}</td>
-              <td>{{ item.deadline }}</td>
-              <td>{{ item.status }}</td>
+          <template #body="{ rows }">
+            <tr v-for="row in rows" :key="row.id">
+              <td>{{ row.name }}</td>
+              <td>{{ row.priority }}</td>
+              <td>{{ row.deadline }}</td>
+              <td>{{ row.status }}</td>
               <td>Action</td>
             </tr>
-          </tbody>
-        </table>
+          </template>
+        </VTable>
         <h1 v-else>No Task assigned yet</h1>
       </div>
     </div>
