@@ -24,10 +24,10 @@
           <tbody>
             <!-- row 1 -->
             <tr v-for="task in empStore.RenderedOngoingTaskArray" :Key="task">
-              <th>{{ task[1].name }}</th>
-              <td>{{ task[1].priority }}</td>
-              <td>{{ task[1].deadline }}</td>
-              <td>{{ task[1].status }}</td>
+              <th>{{ task.name }}</th>
+              <td>{{ task.priority }}</td>
+              <td>{{ task.deadline }}</td>
+              <td>{{ task.status }}</td>
               <td @click.stop="empStore.ToSubmit(task[0])">
                 <a class="cursor-pointer"> Submit </a>
               </td>

@@ -156,38 +156,46 @@
           <div class="bg-neutral text-neutral-content border rounded shadow" v-else>
             <div class="border-b p-3">
               <h5 class="font-bold uppercase text-neutral-content">Task Table</h5>
+              <select v-model="filters.name.value" data-theme="light">
+                <option disabled value="">priority</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="LOW">Low</option>
+              </select>
             </div>
             <div class="p-5 overflow-x-auto">
-              <table
+              <VTable
                 class="table w-full p-5 text-neutral-content"
                 v-if="userStore.RenderedTaskArray.length > 0"
+                :data="userStore.RenderedTaskArray"
+                :filters="filters"
               >
-                <thead class="text-neutral-content">
-                  <tr>
+                <template #head>
+                  <tr class="text-neutral-content">
                     <th class="text-left">Name</th>
                     <th class="text-left">Priority</th>
-                    <th class="text-left">Deadline</th>
+                    <VTh :sortKey="nameLength" class="text-left" defaultSort="desc">Deadline</VTh>
                     <th class="text-left">Status</th>
                     <th class="text-left">Action</th>
                   </tr>
-                </thead>
+                </template>
 
-                <tbody>
-                  <tr v-for="item in userStore.RenderedTaskArray" :key="item">
-                    <td>{{ item[1].name }}</td>
-                    <td>{{ item[1].priority }}</td>
-                    <td>{{ item[1].deadline }}</td>
-                    <td>{{ item[1].status }}</td>
+                <template #body="{ rows }">
+                  <tr v-for="row in rows" :key="row.id">
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.priority }}</td>
+                    <td>{{ row.deadline }}</td>
+                    <td>{{ row.status }}</td>
                     <td>
                       <div class="dropdown dropdown-left w-full">
                         <div tabindex="200000" role="button" class="w-full">Action</div>
                         <ul
                           tabindex="200000"
                           class="dropdown-content bg-neutral text-neutral-content menu shadow-white rounded-box z-[1] w-52 p-2 shadow"
-                          v-if="item[1].status == 'pending'"
+                          v-if="row.status == 'pending'"
                         >
                           <li>
-                            <a @click.prevent.stop="userStore.taskTogglemodal(item[0])"
+                            <a @click.prevent.stop="userStore.taskTogglemodal(row.id)"
                               >start the task</a
                             >
                           </li>
@@ -195,8 +203,8 @@
                       </div>
                     </td>
                   </tr>
-                </tbody>
-              </table>
+                </template>
+              </VTable>
               <h1 v-else>No Task assigned yet</h1>
               <!--
               
@@ -235,10 +243,10 @@
 
           <tbody>
             <tr v-for="item in userStore.RenderedTaskArray" :key="item">
-              <td>{{ item[1].name }}</td>
-              <td>{{ item[1].priority }}</td>
-              <td>{{ item[1].deadline }}</td>
-              <td>{{ item[1].status }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.priority }}</td>
+              <td>{{ item.deadline }}</td>
+              <td>{{ item.status }}</td>
               <td>Action</td>
             </tr>
           </tbody>
@@ -293,38 +301,15 @@ export default {
       userStore: null,
       InitialUserStore: null,
       taskviewmodal: { 'modal-open': false },
-      notifications: []
+      notifications: [],
+      filters: {
+        name: { value: '', keys: ['priority'] }
+      }
     }
   },
   methods: {
-    /*
-    async query1() {
-      const q = query(
-        collection(db, 'employee'),
-        where('AdminUid', '==', this.InitialUserStore.userObj.uid)
-      )
-      const querySnapshot = await getDocs(q)
-      this.userStore.RenderedEmpArray = []
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        //console.log(doc.id, ' => ', doc.data())
-        this.userStore.RenderedEmpArray.push([doc.id, doc.data()])
-      })
-    },
-    /*,
-    async query2() {
-      const q = query(
-        collection(db, 'Task'),
-        where('assignto', '==', this.InitialUserStore.userObj.uid)
-      )
-      const querySnapshot = await getDocs(q)
-      this.userStore.RenderedTaskArray = []
-      querySnapshot.forEach((doc) => {
-        this.userStore.RenderedTaskArray.push(doc.data())
-      })
-    }
-      //will run this query from the admin interface
-      */ async taskrenderquery(index) {
+    //will run this query from the admin interface
+    async taskrenderquery(index) {
       const q = query(
         collection(db, 'Task'),
         where('assignto', '==', this.userStore.RenderedEmpArray[index][0])
@@ -332,7 +317,7 @@ export default {
       const querySnapshot = await getDocs(q)
       this.userStore.RenderedTaskArray = []
       querySnapshot.forEach((doc) => {
-        this.userStore.RenderedTaskArray.push([doc.id, doc.data()])
+        this.userStore.RenderedTaskArray.push({ id: doc.id, ...doc.data() })
       })
     },
 
@@ -342,37 +327,15 @@ export default {
     },
     closer() {
       this.taskviewmodal['modal-open'] = false
+    },
+    nameLength(row) {
+      return new Date(row.deadline).getTime()
     }
   },
   created() {
     this.manageStore = useManageStore()
     this.userStore = useempStore()
     this.InitialUserStore = useUserStore()
-    /*
-    const userid = this.InitialUserStore.userObj.uid
-    listenForNotifications(userid, (notification) => {
-      this.InitialUserStore.notifications.push(notification)
-      this.InitialUserStore.notifications.sort((a, b) => b[1].timestamp - a[1].timestamp)
-      let mySound = new Audio('/assets/audio/mixkit-long-pop-2358.wav')
-      mySound.play()
-
-    })
-      */
-    //this.query1()
-    // this.query2()
   }
-
-  //in component router guard had to comment this out because if my projects scale grew it would be a hassle to have this in every compnent
-  /*
-  beforeRouteEnter(to, from, next) {
-    const store = useUserStore()
-    if (store.userLoggedIn) next()
-    else {
-      next({ name: 'home' })
-    }
-  }
-    */
 }
 </script>
-
-<style scoped></style>

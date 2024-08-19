@@ -284,7 +284,7 @@ export const useempStore = defineStore('emp', {
   getters: {
     RenderedOngoingTaskArray() {
       return this.RenderedTaskArray.filter(
-        (item) => item[1].status == 'ongoing' || item[1].status == 'Rejected'
+        (item) => item.status == 'ongoing' || item.status == 'Rejected'
       )
     }
   }

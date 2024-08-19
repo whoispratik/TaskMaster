@@ -12,6 +12,7 @@ import { auth, db } from '@/includes/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 //import { useempStore } from './stores/emp'
 import { doc, getDoc } from 'firebase/firestore'
+import SmartTable from 'vuejs-smart-table'
 
 import { listenForTaskChanges, listenForEmployeeChanges } from './includes/notifications'
 const app = createApp(App)
@@ -19,6 +20,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(VeeValidatePlugin)
+app.use(SmartTable)
 const userStore = useUserStore()
 const empStore = useempStore()
 //const empStore = useempStore()

@@ -38,11 +38,11 @@ const listenForTaskChanges = () => {
   const unsubscribe = onSnapshot(q, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
-        empStore.RenderedTaskArray.push([change.doc.id, change.doc.data()])
+        empStore.RenderedTaskArray.push({ id: change.doc.id, ...change.doc.data() })
       }
       if (change.type == 'modified') {
         empStore.RenderedTaskArray.forEach((d) => {
-          if (d[0] == change.doc.id) d[1].status = change.doc.data().status
+          if (d.id == change.doc.id) d.status = change.doc.data().status
         })
       }
     })
