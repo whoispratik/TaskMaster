@@ -12,12 +12,14 @@ import {
   getDoc,
   query,
   where,
-  getDocs
+  getDocs,
+  deleteDoc
 } from 'firebase/firestore'
 import { sendNotification } from '@/includes/notifications'
 import { defineStore } from 'pinia'
 import { useUserStore } from './user'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
+
 export const useempStore = defineStore('emp', {
   state: () => ({
     RenderedEmpArray: [],
@@ -52,7 +54,13 @@ export const useempStore = defineStore('emp', {
         },
         { merge: true }
       )
-
+      this.taskfile.forEach(async (item) => {
+        await deleteDoc(doc(db, 'files', item[0]))
+        await deleteObject(ref(storage, `uploads/${item[1].uniqueName}`)).catch((error) => {
+          // Uh-oh, an error occurred!
+          console.log(error)
+        })
+      })
       this.taskreviewmodal['modal-open'] = false
       this.taskfinalreviewclick = false
       this.taskRemarks = ''
@@ -76,7 +84,13 @@ export const useempStore = defineStore('emp', {
         },
         { merge: true }
       )
-
+      this.taskfile.forEach(async (item) => {
+        await deleteDoc(doc(db, 'files', item[0]))
+        await deleteObject(ref(storage, `uploads/${item[1].uniqueName}`)).catch((error) => {
+          // Uh-oh, an error occurred!
+          console.log(error)
+        })
+      })
       this.taskreviewmodal['modal-open'] = false
       this.taskfinalreviewclick = false
       this.taskRemarks = ''

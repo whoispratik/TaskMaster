@@ -39,6 +39,10 @@
             </tr>
           </tbody>
         </table>
+
+        <h1 v-else-if="empStore.RenderedReviewArray.length <= 0 && !empStore.taskfinalreviewclick">
+          Nothing to review
+        </h1>
         <div class="p-4 max-w-full" v-show="empStore.taskfinalreviewclick">
           <!-- Responsive grid for files -->
           <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
