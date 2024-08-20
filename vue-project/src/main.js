@@ -38,10 +38,10 @@ onAuthStateChanged(auth, async (user) => {
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
       userStore.UserType = docSnap.data().Role
-      console.log('Document data:', docSnap.data())
+      
     } else {
       // docSnap.data() will be undefined in this case
-      console.log('No such document!')
+      
     }
   } catch (error) {
     console.log(error)
@@ -49,7 +49,7 @@ onAuthStateChanged(auth, async (user) => {
   userStore.setUser(user)
   if (user) {
     userStore.userLoggedIn = true
-    console.log('User is logged in:', user)
+    
     if (!userStore.isMounted) {
       app.mount('#app')
 
@@ -60,7 +60,7 @@ onAuthStateChanged(auth, async (user) => {
     userStore.isMounted = true
   } else {
     userStore.userLoggedIn = false
-    console.log('No user is logged in')
+    
     if (!userStore.isMounted) app.mount('#app')
     userStore.isMounted = true
   }

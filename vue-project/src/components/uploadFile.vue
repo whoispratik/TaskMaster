@@ -56,7 +56,7 @@ export default {
     upload(event) {
       this.isdragover = false
       const files = [...event.dataTransfer.files]
-      console.log(files)
+      
       files.forEach((file) => {
         if (file.type != 'audio/mpeg') return
       })

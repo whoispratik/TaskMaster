@@ -8,11 +8,11 @@ export const useModalStore = defineStore('modal', {
     },
     MouseOverHandler() {
       this.ishovered = !this.ishovered
-      console.log('mousover event')
+      
     },
     MouseOutHandler() {
       this.ishovered = !this.ishovered
-      console.log('mousout event')
+      
     },
     falseassigner() {
       this.isopen = false
