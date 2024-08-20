@@ -37,10 +37,10 @@ export const useUserStore = defineStore('user', {
           displayName: values.name
         })
         // console.log('user cred')
-        console.log(usercred)
+        
         this.userLoggedIn = true
-        console.log('user details after loging in' + this.userLoggedIn) // Verify user is logged in
-        console.log('user details after registration' + this.userLoggedIn) // Verify user is logged in
+         // Verify user is logged in
+         // Verify user is logged in
       } catch (error) {
         // Handle any errors
         this.reg_alert_variant = 'bg-red-500'
@@ -51,7 +51,7 @@ export const useUserStore = defineStore('user', {
 
     async authenticate(values) {
       const u = await signInWithEmailAndPassword(auth, values.email, values.password)
-      console.log(u)
+      
       this.userLoggedIn = true
     },
     setUser(user) {

@@ -51,7 +51,7 @@ const listenForTaskChanges = () => {
 const listenForEmployeeChanges = () => {
   let empStore = useempStore()
   let userStore = useUserStore()
-  console.log('executing')
+  
   const q = query(collection(db, 'employee'), where('AdminUid', '==', userStore.userObj.uid))
   const unsubscribe = onSnapshot(q, (snapshot) => {
     snapshot.docChanges().forEach((change) => {

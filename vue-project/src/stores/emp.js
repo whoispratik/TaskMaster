@@ -186,11 +186,11 @@ export const useempStore = defineStore('emp', {
         await auth.updateCurrentUser(adminAuthState)
         sendNotification(usercred.user.uid, 'Hey welcome to the team')
         // console.log('user cred')
-        console.log(usercred)
+        
 
-        console.log('user details after loging in' + this.userLoggedIn) // Verify user is logged in
+         // Verify user is logged in
 
-        console.log('user details after registration' + this.userLoggedIn) // Verify user is logged in
+         // Verify user is logged in
       } catch (error) {
         // Handle any errors
         this.reg_alert_variant = 'bg-red-500'
@@ -260,11 +260,11 @@ export const useempStore = defineStore('emp', {
         try {
           // Upload the file
           const snapshot = await uploadBytes(storageRef, file)
-          console.log('Uploaded a blob or file!', snapshot)
+          
 
           // Get the file's download URL
           const downloadURL = await getDownloadURL(storageRef)
-          console.log('File available at', downloadURL)
+          
 
           // Add a document with file metadata to Firestore
           await addDoc(collection(db, 'files'), {
@@ -287,7 +287,7 @@ export const useempStore = defineStore('emp', {
             { merge: true }
           )
 
-          console.log('File uploaded and metadata saved.')
+          
         } catch (error) {
           console.error('Error uploading file:', error)
         }
