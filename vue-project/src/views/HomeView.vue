@@ -5,7 +5,8 @@
       <div class="max-w-md">
         <h1 class="mb-5 text-5xl font-bold">Task Master</h1>
         <p class="mb-5 text-2xl">An Efficient Task Management Web App</p>
-        <button class="btn btn-primary">Get Started</button>
+
+        <RouterLink :to="{ name: 'Manage' }" class="px-2 btn btn-primary">Get Started</RouterLink>
       </div>
     </div>
   </div>

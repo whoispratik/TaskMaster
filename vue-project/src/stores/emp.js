@@ -68,7 +68,6 @@ export const useempStore = defineStore('emp', {
       this.alert_msg = 'Task Approved'
       this.alertmodal = true
       setTimeout(this.alertModalClose, 2000)
-
       sendNotification(toWho, 'Hey one of your task has been approved ! congrats')
     },
     async reject() {

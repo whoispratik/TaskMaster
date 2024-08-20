@@ -56,13 +56,13 @@
     <div class="navbar-center">
       <RouterLink
         :to="{ name: 'home' }"
-        class="text-white font-bold uppercase text-2xl mr-4"
+        class="text-white font-bold uppercase text-2xl"
         href="#"
         exactActiveClass="none"
         >Task Master</RouterLink
       >
     </div>
-    <div class="navbar-end" v-if="userStore.userLoggedIn">
+    <div class="navbar-end">
       <div class="dropdown dropdown-end">
         <button class="btn btn-ghost btn-circle" tabindex="20000" role="button">
           <div class="indicator">
