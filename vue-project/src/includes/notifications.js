@@ -35,7 +35,7 @@ const listenForTaskChanges = () => {
   let empStore = useempStore()
   let userStore = useUserStore()
   const q = query(collection(db, 'Task'), where('assignto', '==', userStore.userObj.uid))
-  const unsubscribe = onSnapshot(q, (snapshot) => {
+  onSnapshot(q, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         empStore.RenderedTaskArray.push({ id: change.doc.id, ...change.doc.data() })
@@ -51,9 +51,9 @@ const listenForTaskChanges = () => {
 const listenForEmployeeChanges = () => {
   let empStore = useempStore()
   let userStore = useUserStore()
-  
+
   const q = query(collection(db, 'employee'), where('AdminUid', '==', userStore.userObj.uid))
-  const unsubscribe = onSnapshot(q, (snapshot) => {
+  onSnapshot(q, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         empStore.RenderedEmpArray.push([change.doc.id, change.doc.data()])
