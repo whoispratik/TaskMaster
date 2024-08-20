@@ -51,7 +51,12 @@
               :key="file[0]"
               class="bg-gray-100 p-4 rounded-lg shadow hover:shadow-md"
             >
-              <a :href="file[1].url" target="_blank" class="text-blue-600 hover:underline">
+              <a
+                :href="file[1].url"
+                target="_blank"
+                class="text-blue-600 hover:underline"
+                rel="noopener noreferrer"
+              >
                 Download File {{ index }}
               </a>
             </li>
