@@ -109,9 +109,7 @@
         <div class="w-full p-3">
           <!--Table Card-->
           <div class="border rounded shadow" v-if="InitialUserStore.UserType == 'admin'">
-            <div class="border-b p-3">
-              <h5 class="font-bold uppercase text-gray-600">Table</h5>
-            </div>
+            <div class="border-b p-3"></div>
             <div class="p-5 overflow-x-auto">
               <table
                 class="table w-full p-5 bg-neutral text-neutral-content"
@@ -124,20 +122,19 @@
                     <th class="text-left text-neutral-content">Action</th>
                   </tr>
                 </thead>
-
                 <tbody>
-                  <tr v-for="(item, index) in userStore.RenderedEmpArray" :key="item">
-                    <td>{{ item[1].name }}</td>
-                    <td>{{ item[1].JobTitle }}</td>
+                  <tr v-for="(item, index) in userStore.RenderedEmpArray" :key="item.id">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.JobTitle }}</td>
                     <td>
                       <div class="dropdown dropdown-left w-full">
-                        <td :tabindex="index" role="button">action</td>
+                        <td :tabindex="46000 + index" role="button">action</td>
                         <ul
-                          :tabindex="index"
+                          :tabindex="46000 + index"
                           class="dropdown-content bg-neutral menu shadow-white rounded-box z-[1] w-52 p-2 shadow"
                         >
                           <li>
-                            <a @click.prevent.stop="togglemodal(index)">view tasks</a>
+                            <a @click.prevent.stop="togglemodal(item.id)">view tasks</a>
                           </li>
                         </ul>
                       </div>
@@ -263,7 +260,7 @@
           </template>
 
           <template #body="{ rows }">
-            <tr v-for="row in rows" :key="row.id">
+            <tr v-for="row in rows" :key="row">
               <td>{{ row.name }}</td>
               <td>{{ row.priority }}</td>
               <td>{{ row.deadline }}</td>
@@ -324,17 +321,15 @@ export default {
       taskviewmodal: { 'modal-open': false },
       notifications: [],
       filters: {
-        name: { value: '', keys: ['priority'] }
+        name: { value: '', keys: ['priority'] },
+        Empname: { value: '', keys: ['name'] }
       }
     }
   },
   methods: {
     //will run this query from the admin interface
-    async taskrenderquery(index) {
-      const q = query(
-        collection(db, 'Task'),
-        where('assignto', '==', this.userStore.RenderedEmpArray[index][0])
-      )
+    async taskrenderquery(id) {
+      const q = query(collection(db, 'Task'), where('assignto', '==', id))
       const querySnapshot = await getDocs(q)
       this.userStore.RenderedTaskArray = []
       querySnapshot.forEach((doc) => {
@@ -342,9 +337,9 @@ export default {
       })
     },
 
-    togglemodal(index) {
+    togglemodal(id) {
+      this.taskrenderquery(id)
       this.taskviewmodal['modal-open'] = !this.taskviewmodal['modal-open']
-      this.taskrenderquery(index)
     },
     closer() {
       this.taskviewmodal['modal-open'] = false

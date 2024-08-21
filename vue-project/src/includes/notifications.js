@@ -56,7 +56,7 @@ const listenForEmployeeChanges = () => {
   onSnapshot(q, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
-        empStore.RenderedEmpArray.push([change.doc.id, change.doc.data()])
+        empStore.RenderedEmpArray.push({ id: change.doc.id, ...change.doc.data() })
       }
     })
   })

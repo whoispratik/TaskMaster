@@ -49,8 +49,8 @@
         as="select"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       >
-        <option v-for="item in empStore.RenderedEmpArray" :key="item[0]" :value="item[0]">
-          {{ item[1].name }}
+        <option v-for="item in empStore.RenderedEmpArray" :key="item.id" :value="item.id">
+          {{ item.name }}
         </option>
       </veeField>
       <ErrorMessage class="text-red-600" name="assignto"></ErrorMessage>
