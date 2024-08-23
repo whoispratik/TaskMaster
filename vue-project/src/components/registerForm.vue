@@ -120,7 +120,7 @@ export default {
         name: 'required|min:4|max:75|alpha_spaces',
         email: 'required|email',
         age: 'required|min_value:18|max_value:200',
-        password: 'required|min:9|max:100|invalidpass:password',
+        password: 'required|min:9|max:50|invalidpass:password',
         confirmPassword: 'confirmed:@password',
         country: 'required|invalidcountry:india',
         tos: 'tos'

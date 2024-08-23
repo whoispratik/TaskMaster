@@ -5,6 +5,8 @@ import {
   ErrorMessage,
   configure
 } from 'vee-validate'
+import { collection, query, where, getDocs, getDoc, doc } from 'firebase/firestore'
+import { db } from './firebase'
 import {
   required,
   min,
@@ -16,6 +18,7 @@ import {
   confirmed,
   not_one_of as excluded
 } from '@vee-validate/rules'
+import { useempStore } from '@/stores/emp'
 export default {
   install(app) {
     app.component('VeeForm', VeeForm)
@@ -42,6 +45,20 @@ export default {
       } else {
         return 'the deadline can only be of the future'
       }
+    })
+    defineRule('WorkloadCheck', async (value) => {
+      const empStore = useempStore()
+      const EmpWorkloadObj = (await getDoc(doc(db, 'employee', value))).data().workload
+      const q = query(
+        collection(db, 'Task'),
+        where('assignto', '==', value),
+        where('priority', '==', empStore.CurrentPriority)
+      )
+      const Currently = await getDocs(q)
+      if (Currently.size < EmpWorkloadObj[empStore.CurrentPriority]) {
+        // console.log(Currently)
+        return true
+      } else return `The task limit for ${empStore.CurrentPriority} has been hit!!`
     })
     configure({
       generateMessage: (ctx) => {

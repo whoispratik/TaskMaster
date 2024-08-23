@@ -136,6 +136,11 @@
                           <li>
                             <a @click.prevent.stop="togglemodal(item.id)">view tasks</a>
                           </li>
+                          <li>
+                            <a @click.prevent.stop="userStore.ToggleWorkloadModal(item.id)"
+                              >workload</a
+                            >
+                          </li>
                         </ul>
                       </div>
                     </td>
@@ -143,11 +148,6 @@
                 </tbody>
               </table>
               <h1 v-else>Register an Employee First</h1>
-
-              <!--
-              
-         <p class="py-2"><a href="#">See More issues...</a></p>
-         -->
             </div>
           </div>
           <div class="bg-neutral text-neutral-content border rounded shadow" v-else>
@@ -214,10 +214,8 @@
          -->
             </div>
           </div>
-          <!--/table Card-->
         </div>
       </div>
-      <!--/ Console Content-->
     </div>
   </div>
   <employAuth></employAuth>
@@ -294,6 +292,7 @@
   </dialog>
   <ReviewRenderedModal></ReviewRenderedModal>
   <TaskSubmit></TaskSubmit>
+  <WorkLoad></WorkLoad>
 </template>
 
 <script>
@@ -306,13 +305,10 @@ import { collection, query, where, getDocs } from 'firebase/firestore'
 import TaskSubmit from '@/components/TaskSubmit.vue'
 import { db } from '../includes/firebase'
 import ReviewRenderedModal from '@/components/ReviewRenderedModal.vue'
-
-//import { listenForNotifications } from '../includes/notifications'
-//import { useUserStore } from '@/stores/user'
-
+import WorkLoad from '@/components/WorkLoad.vue'
 export default {
   name: 'ManageView',
-  components: { employAuth, taskModels, TaskSubmit, ReviewRenderedModal },
+  components: { employAuth, taskModels, TaskSubmit, ReviewRenderedModal, WorkLoad },
   data() {
     return {
       manageStore: null,

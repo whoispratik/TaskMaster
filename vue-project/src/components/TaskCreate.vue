@@ -32,10 +32,12 @@
     <div class="mb-3">
       <label class="inline-block mb-2">Priority</label>
       <veeField
+        v-model="empStore.CurrentPriority"
         name="priority"
         as="select"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       >
+        <option value="" disabled>Priority</option>
         <option value="High">High</option>
         <option value="Medium">Medium</option>
         <option value="Low">low</option>
@@ -74,7 +76,7 @@ export default {
       schema: {
         name: 'required|min:4|max:75|alpha_spaces',
         date: 'required|futuredate',
-        assignto: 'required',
+        assignto: 'required|WorkloadCheck',
         priority: 'required'
 
         // Role: 'required'

@@ -36,10 +36,38 @@ export const useempStore = defineStore('emp', {
     alertmodal: false,
     submitClicked: false,
     taskRemarks: '',
-    acceptrejectdid: null
+    acceptrejectdid: null,
+    CurrentPriority: '',
+    WorkloadModal: { 'modal-open': false },
+    WorkloadDetails: { High: 5, Medium: 5, Low: 5 },
+    EmpWorkloadInAction: ''
   }),
 
   actions: {
+    async WorkloadChanges(values) {
+      try {
+        await updateDoc(doc(db, 'employee', this.EmpWorkloadInAction), {
+          'workload.High': Number(values.High),
+          'workload.Medium': Number(values.Medium),
+          'workload.Low': Number(values.Low)
+        })
+      } catch (error) {
+        // Handle any errors
+        this.reg_alert_variant = 'bg-red-500'
+        this.reg_alert_msg = `Error: ${error.message}`
+        console.error(error.code, error.message)
+      }
+    },
+    async ToggleWorkloadModal(id) {
+      this.WorkloadDetails = await (await getDoc(doc(db, 'employee', id))).data().workload
+      this.EmpWorkloadInAction = id
+      this.WorkloadModal['modal-open'] = true
+    },
+    ToggleWorkloadModalCloser() {
+      this.WorkloadDetails = { High: 5, Medium: 5, Low: 5 }
+      this.EmpWorkloadInAction = ''
+      this.WorkloadModal['modal-open'] = false
+    },
     async accept() {
       const docRef = doc(db, 'Task', this.acceptrejectdid)
       const toWho = (await getDoc(docRef)).data().assignto

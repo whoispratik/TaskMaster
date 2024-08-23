@@ -29,7 +29,8 @@ export const useUserStore = defineStore('user', {
           country: values.country,
           email: values.email,
           createdAt: new Date(),
-          Role: 'admin'
+          Role: 'admin',
+          workload: { High: 5, Medium: 5, Low: 5 }
         })
 
         // Update user profile display name
