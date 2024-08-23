@@ -52,7 +52,8 @@ export default {
       const q = query(
         collection(db, 'Task'),
         where('assignto', '==', value),
-        where('priority', '==', empStore.CurrentPriority)
+        where('priority', '==', empStore.CurrentPriority),
+        where('status', '!=', 'Completed')
       )
       const Currently = await getDocs(q)
       if (Currently.size < EmpWorkloadObj[empStore.CurrentPriority]) {
