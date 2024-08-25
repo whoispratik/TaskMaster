@@ -37,14 +37,7 @@
               </span>
             </li>
             <li>
-              <RouterLink
-                :to="{ name: 'home' }"
-                class="px-2 text-white"
-                href="#"
-                @click.prevent="userStore.logout"
-                exactActiveClass="none"
-                >logout</RouterLink
-              >
+              <a class="px-2 text-white" href="#" @click.stop="userStore.logout">logout</a>
               <RouterLink :to="{ name: 'Manage' }" class="px-2">Manage</RouterLink>
             </li>
           </template>

@@ -3,7 +3,7 @@
     <div class="modal-box">
       <div
         class="tex-white text-center font-bold p-4 rounded mb-4"
-        v-if="reg_show_alert"
+        v-show="reg_show_alert"
         :class="reg_alert_variant"
       >
         {{ reg_alert_msg }}

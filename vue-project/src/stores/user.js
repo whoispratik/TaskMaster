@@ -5,7 +5,7 @@ import { doc, deleteDoc } from 'firebase/firestore'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { setDoc } from 'firebase/firestore'
 import { defineStore } from 'pinia'
-
+import router from '@/router/index'
 export const useUserStore = defineStore('user', {
   state: () => ({
     userLoggedIn: false,
@@ -29,8 +29,7 @@ export const useUserStore = defineStore('user', {
           country: values.country,
           email: values.email,
           createdAt: new Date(),
-          Role: 'admin',
-          workload: { High: 5, Medium: 5, Low: 5 }
+          Role: 'admin'
         })
 
         // Update user profile display name
@@ -59,9 +58,17 @@ export const useUserStore = defineStore('user', {
       this.userObj = user
     },
     async logout() {
-      await signOut(auth)
-      this.setUser(null)
-      this.notifications = []
+      if (confirm('Are you sure you want to logout') == true) {
+        try {
+          await signOut(auth)
+          this.setUser(null)
+          this.notifications = []
+          router.push('/')
+        } catch (e) {
+          console.log(e)
+        }
+      }
+      return
     },
     async deleteNotification(docRef) {
       await deleteDoc(doc(db, 'notifications', docRef))
