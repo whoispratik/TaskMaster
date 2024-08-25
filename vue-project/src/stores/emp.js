@@ -179,7 +179,7 @@ export const useempStore = defineStore('emp', {
       this.submitClicked = false
     },
     async sendWelcomeEmail(email, name, password) {
-      await fetch('/.netlify/functions/sendEmail', {
+      await fetch('/.netlify/functions/sendemail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -191,8 +191,8 @@ export const useempStore = defineStore('emp', {
         })
       })
 
-      // const data = await response.json()
-      //console.log(data)
+      const data = await response.json()
+      console.log(data)
     },
     async createEmployee(values) {
       const userStore = useUserStore()
