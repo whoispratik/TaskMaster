@@ -7,8 +7,8 @@ exports.handler = async function (event, context) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: import.meta.env.VITE_Email, // Replace with your email
-      pass: import.meta.env.VITE_pass // Replace with your email password or app-specific password
+      user: process.env.VITE_Email, // Replace with your email
+      pass: process.env.VITE_pass // Replace with your email password or app-specific password
     }
   })
 
