@@ -203,7 +203,8 @@ export const useempStore = defineStore('emp', {
           createdAt: new Date(),
           Role: 'employee',
           AdminUid: userStore.userObj.uid,
-          AdminmMail: userStore.userObj.email
+          AdminmMail: userStore.userObj.email,
+          workload: { High: 5, Medium: 5, Low: 5 }
         })
 
         // Update user profile display name
