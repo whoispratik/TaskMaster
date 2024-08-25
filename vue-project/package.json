@@ -17,6 +17,7 @@
     "@vee-validate/rules": "^4.13.1",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.2",
+    "nodemailer": "^6.9.14",
     "pinia": "^2.1.7",
     "vee-validate": "^4.5.8",
     "vue": "^3.4.21",

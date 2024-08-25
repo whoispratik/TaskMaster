@@ -178,6 +178,22 @@ export const useempStore = defineStore('emp', {
       this.taskSubmitmodal['modal-open'] = false
       this.submitClicked = false
     },
+    async sendWelcomeEmail(email, name, password) {
+      await fetch('/.netlify/functions/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          displayName: name,
+          password: password
+        })
+      })
+
+      // const data = await response.json()
+      //console.log(data)
+    },
     async createEmployee(values) {
       const userStore = useUserStore()
       try {

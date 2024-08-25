@@ -170,6 +170,7 @@ export default {
           this.reg_show_alert = false
         }, 2000)
         resetForm()
+        await this.empStore.sendWelcomeEmail(values.email, values.name, values.password)
       }
     }
   }
