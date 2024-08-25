@@ -33,9 +33,7 @@
             <li>
               <span
                 >Welcome
-                {{
-                  (userStore.UserType || 'User') + ':' + userStore.userObj.displayName.toUpperCase()
-                }}
+                {{ (userStore.UserType || 'User') + ':' + userStore.userObj.displayName }}
               </span>
             </li>
             <li>
