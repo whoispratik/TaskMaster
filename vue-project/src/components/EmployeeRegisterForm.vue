@@ -134,7 +134,7 @@ export default {
         age: 'required|min_value:18|max_value:200',
         password: 'required|min:9|max:100|invalidpass:password',
         confirmPassword: 'confirmed:@password',
-        country: 'required|invalidcountry:india',
+        country: 'required',
         JobTitle: 'required',
         tos: 'tos'
         // Role: 'required'
