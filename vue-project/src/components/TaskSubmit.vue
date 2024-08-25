@@ -1,6 +1,14 @@
 <template>
   <dialog id="my_modal_3" class="modal" :class="empStore.taskSubmitmodal">
     <div class="modal-box">
+      <div
+        class="tex-white text-center font-bold p-4 rounded mb-4"
+        v-if="reg_show_alert"
+        :class="reg_alert_variant"
+      >
+        {{ reg_alert_msg }}
+      </div>
+
       <form method="dialog">
         <button
           class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -86,12 +94,15 @@ export default {
       },
       reg_in_submission: false,
       reg_alert_msg: 'please wait!The task is being submitted',
-      empStore: null
+      reg_alert_variant: 'bg-blue-500',
+      empStore: null,
+      reg_show_alert: false
     }
   },
   methods: {
     async register(values, { resetForm }) {
       this.reg_in_submission = true
+      this.reg_show_alert = true
       try {
         //function call
         await this.empStore.SubmitTask(values)
@@ -108,6 +119,7 @@ export default {
           this.empStore.employeInfo.AdminUid,
           `${this.empStore.employeInfo.name} has submitted a task'`
         )
+        this.reg_show_alert = false
         this.empStore.alert_msg = 'success the task has been submitted'
         this.empStore.taskSubmitmodal['modal-open'] = false
         this.empStore.submitClicked = false
