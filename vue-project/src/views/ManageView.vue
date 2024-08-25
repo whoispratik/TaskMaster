@@ -147,7 +147,7 @@
                   </tr>
                 </tbody>
               </table>
-              <h1 v-else>Register an Employee First</h1>
+              <h1 v-else class="text-neutral-content">Register an Employee First</h1>
             </div>
           </div>
           <div class="bg-neutral text-neutral-content border rounded shadow" v-else>
