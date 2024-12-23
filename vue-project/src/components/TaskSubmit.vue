@@ -31,15 +31,22 @@
           </thead>
           <tbody>
             <!-- row 1 -->
-            <tr v-for="task in empStore.RenderedOngoingTaskArray" :Key="task">
-              <th>{{ task.name }}</th>
-              <td>{{ task.priority }}</td>
-              <td>{{ task.deadline }}</td>
-              <td>{{ task.status }}</td>
-              <td @click.stop="empStore.ToSubmit(task.id)">
-                <a class="cursor-pointer"> Submit </a>
-              </td>
-            </tr>
+            <template v-if="empStore.RenderedOngoingTaskArray.length === 0">
+              <tr>
+                <td colspan="5" class="text-center">No Task to Submit or Re-Submit</td>
+              </tr>
+            </template>
+            <template v-else>
+              <tr v-for="task in empStore.RenderedOngoingTaskArray" :Key="task">
+                <th>{{ task.name }}</th>
+                <td>{{ task.priority }}</td>
+                <td>{{ task.deadline }}</td>
+                <td>{{ task.status }}</td>
+                <td @click.stop="empStore.ToSubmit(task.id)">
+                  <a class="cursor-pointer"> Submit </a>
+                </td>
+              </tr>
+            </template>
           </tbody>
         </table>
 
